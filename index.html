@@ -958,62 +958,8 @@ const MAX_ROUNDS_SHOWN = 10;
 let currentSlide = 0;
 const slides = document.getElementsByClassName('slide');
 const indicators = document.getElementsByClassName('indicator');
-function playCoinFlip() {
-  const betAmount = parseFloat(document.getElementById('coinBet').value);
-  const balance = parseFloat(document.getElementById('balance').textContent);
-  if (!betAmount || betAmount > balance || betAmount < 1) {
-    alert('Please check your bet amount and balance');
-    return;
-  }
-  document.getElementById('balance').textContent = (balance - betAmount).toFixed(2);
-  const coin = document.querySelector('.coin');
-  coin.classList.add('flipping');
-  const win = Math.random() < 0.5;
-  setTimeout(() => {
-    coin.classList.remove('flipping');
-    const resultOverlay = document.getElementById('coinResult');
-    resultOverlay.textContent = win ? 'WIN!' : 'LOSE';
-    resultOverlay.className = `result-overlay ${win ? 'win' : 'lose'}`;
-    resultOverlay.style.display = 'flex';
-    if (win) {
-      const currentBalance = parseFloat(document.getElementById('balance').textContent);
-      document.getElementById('balance').textContent = (currentBalance + betAmount * 2).toFixed(2);
-    }
-    setTimeout(() => {
-      resultOverlay.style.display = 'none';
-    }, 2000);
-  }, 2000);
-}
-function playDiceRoll() {
-  const betAmount = parseFloat(document.getElementById('diceBet').value);
-  const selectedNumber = parseInt(document.getElementById('diceNumber').value);
-  const balance = parseFloat(document.getElementById('balance').textContent);
-  if (!betAmount || !selectedNumber || betAmount > balance || betAmount < 1) {
-    alert('Please check your inputs and balance');
-    return;
-  }
-  document.getElementById('balance').textContent = (balance - betAmount).toFixed(2);
-  const dice = document.getElementById('diceDemo');
-  dice.classList.add('rolling');
-  const result = Math.floor(Math.random() * 6) + 1;
-  setTimeout(() => {
-    dice.classList.remove('rolling');
-    dice.textContent = result;
-    const win = result === selectedNumber;
-    const resultOverlay = document.getElementById('diceResult');
-    resultOverlay.textContent = win ? 'WIN!' : 'LOSE';
-    resultOverlay.className = `result-overlay ${win ? 'win' : 'lose'}`;
-    resultOverlay.style.display = 'flex';
-    if (win) {
-      const currentBalance = parseFloat(document.getElementById('balance').textContent);
-      document.getElementById('balance').textContent = (currentBalance + betAmount * 6).toFixed(2);
-    }
-    setTimeout(() => {
-      resultOverlay.style.display = 'none';
-      dice.textContent = '⌂';
-    }, 2000);
-  }, 2000);
-}
+function playCoinFlip() {}
+function playDiceRoll() {}
 function playCryptoIndexGrowth() {
   const betAmount = parseFloat(document.getElementById('volatilityBet').value);
   const tickCount = parseInt(document.getElementById('tickCount').value);
@@ -1100,14 +1046,14 @@ function playMuskGame() {
         const trail = document.createElement('div');
         trail.className = 'rocket-trail';
         trail.style.cssText = `
-          position: absolute;
-          left: ${rocket.offsetLeft + 25}px;
-          bottom: ${200 - height}px;
-          width: 4px;
-          height: 10px;
-          background: rgba(255,75,75,0.5);
-          border-radius: 2px;
-        `;
+              position: absolute;
+              left: ${rocket.offsetLeft + 25}px;
+              bottom: ${200 - height}px;
+              width: 4px;
+              height: 10px;
+              background: rgba(255,75,75,0.5);
+              border-radius: 2px;
+            `;
         document.querySelector('.rocket-container').appendChild(trail);
         setTimeout(() => trail.remove(), 1000);
         if (Math.random() < 0.001 * currentMultiplier) {
@@ -1146,14 +1092,14 @@ function crashMusk() {
   const explosion = document.createElement('div');
   explosion.className = 'explosion';
   explosion.style.cssText = `
-    position: absolute;
-    left: ${rocket.offsetLeft}px;
-    top: ${rocket.offsetTop}px;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, #ff4b4b, transparent);
-    animation: explode 0.5s forwards;
-  `;
+        position: absolute;
+        left: ${rocket.offsetLeft}px;
+        top: ${rocket.offsetTop}px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, #ff4b4b, transparent);
+        animation: explode 0.5s forwards;
+      `;
   document.querySelector('.rocket-container').appendChild(explosion);
   const resultOverlay = document.getElementById('muskResult');
   resultOverlay.textContent = 'CRASHED!';
@@ -1308,31 +1254,6 @@ document.addEventListener('DOMContentLoaded', () => {
         item.classList.add('active');
       }
     });
-  });
-  const modeSwitch = document.getElementById('modeSwitch');
-  const modeIndicator = document.getElementById('modeIndicator');
-  const actionButtons = document.getElementById('actionButtons');
-  modeSwitch.addEventListener('click', () => {
-    const isDemo = modeSwitch.classList.contains('demo-mode');
-    if (isDemo) {
-      modeSwitch.classList.remove('demo-mode');
-      modeSwitch.classList.add('real-mode');
-      modeSwitch.textContent = 'Switch to Demo Account';
-      modeIndicator.classList.remove('demo-badge');
-      modeIndicator.classList.add('real-badge');
-      modeIndicator.textContent = 'REAL MODE';
-      actionButtons.style.display = 'flex';
-      document.getElementById('balance').textContent = '0.00';
-    } else {
-      modeSwitch.classList.remove('real-mode');
-      modeSwitch.classList.add('demo-mode');
-      modeSwitch.textContent = 'Switch to Real Account';
-      modeIndicator.classList.remove('real-badge');
-      modeIndicator.classList.add('demo-badge');
-      modeIndicator.textContent = 'DEMO MODE';
-      actionButtons.style.display = 'none';
-      document.getElementById('balance').textContent = '1000.00';
-    }
   });
 });</script>
 </body>
